@@ -26,24 +26,28 @@ class _GroupedListPageState extends State<GroupedListPage> {
         title: const Text("Grouped List Demo"),
       ),
       body: Container(
-         child: ListView.separated(
+         child: ListView.builder(
            padding: const EdgeInsets.all(8),
            itemCount: groupedMap?.length ?? 0,
            itemBuilder: (BuildContext context, int index1) {
-             return ListView.builder(
-               itemCount: groupedMap?.values.elementAt(index1).length ?? 0,
-               physics: NeverScrollableScrollPhysics(),
-               shrinkWrap: true,
-               itemBuilder: (BuildContext context, int index2){
-                 return Container(
-                   height: 50,
-                   color: Colors.redAccent,
-                   child: Center(child: Text('${groupedMap?.values.elementAt(index1).elementAt(index2)}')),
-                 );
-               },
+             return Column(
+               children: [
+                 Text("${groupedMap?.keys.elementAt(index1)}"),
+                 ListView.builder(
+                 itemCount: groupedMap?.values.elementAt(index1).length ?? 0,
+                 physics: NeverScrollableScrollPhysics(),
+                 shrinkWrap: true,
+                 itemBuilder: (BuildContext context, int index2){
+                   return Container(
+                     height: 50,
+                     color: Colors.redAccent,
+                     child: Center(child: Text('${groupedMap?.values.elementAt(index1).elementAt(index2)}')),
+                   );
+                 },
+               )
+               ],
              );
            },
-           separatorBuilder: (BuildContext context, int index) => Text("${groupedMap?.keys.elementAt(index)}"),
          )
       ),
     );
