@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_practice/utils/random_name_generator.dart';
+import 'package:flutter_ui_practice/widgets/list_page_item.dart';
 
 class GroupedListPage extends StatefulWidget {
   const GroupedListPage({super.key});
@@ -33,37 +34,8 @@ class _GroupedListPageState extends State<GroupedListPage> {
         itemCount: groupedMap?.length ?? 0,
         itemBuilder: (BuildContext context, int index1) {
           var key = groupedMap?.keys.elementAt(index1);
-          return Column(
-            children: [
-              InkWell(
-                  onTap: () {
-                    clickedHeader = key;
-                    setState(() {});
-                  },
-                  child: Container(
-                    height: 50,
-                    color: Colors.amber,
-                    child: Center(child: Text('$key')),
-                  )),
-              clickedHeader == key
-                  ? ListView.builder(
-                      itemCount:
-                          groupedMap?.values.elementAt(index1).length ?? 0,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index2) {
-                        return Container(
-                          height: 50,
-                          color: Colors.redAccent,
-                          child: Center(
-                              child: Text(
-                                  '${groupedMap?.values.elementAt(index1).elementAt(index2)}')),
-                        );
-                      },
-                    )
-                  : SizedBox()
-            ],
-          );
+          var nameList = groupedMap?.values.elementAt(index1);
+          return ListPageItem(headerKey: key.toString(), nameList: nameList ?? []);
         },
       )),
     );
