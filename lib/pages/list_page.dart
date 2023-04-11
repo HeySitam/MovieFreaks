@@ -32,9 +32,9 @@ class _GroupedListPageState extends State<GroupedListPage> {
           child: ListView.builder(
         padding: const EdgeInsets.all(8),
         itemCount: groupedMap?.length ?? 0,
-        itemBuilder: (BuildContext context, int index1) {
-          var key = groupedMap?.keys.elementAt(index1);
-          var nameList = groupedMap?.values.elementAt(index1);
+        itemBuilder: (BuildContext context, int index) {
+          var key = groupedMap?.keys.elementAt(index);
+          var nameList = groupedMap?.values.elementAt(index);
           return ListPageItem(headerKey: key.toString(), nameList: nameList ?? []);
         },
       )),

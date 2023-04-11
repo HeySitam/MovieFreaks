@@ -14,7 +14,7 @@ class ListPageItem extends StatefulWidget {
 }
 
 class _ListPageItemState extends State<ListPageItem> {
-  bool _isExpanded = false;
+  final double _itemHeight = 50.0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _ListPageItemState extends State<ListPageItem> {
               selectionProvider.setSelectedHeader(widget.headerKey);
             },
             child: Container(
-              height: 50,
+              height: _itemHeight,
               color: Colors.amber,
               child: Center(child: Text(widget.headerKey)),
             ),
@@ -47,9 +47,10 @@ class _ListPageItemState extends State<ListPageItem> {
                 provider.getSelectedHeader == widget.headerKey &&
                     provider.getShouldExpand;
             return AnimatedContainer(
-              height: _shouldExpand ? widget.nameList.length * 50 : 0,
+              height: _shouldExpand ? widget.nameList.length * _itemHeight : 0,
+              curve: Curves.elasticOut,
               duration: _shouldExpand
-                  ? Duration(milliseconds: 600)
+                  ? Duration(milliseconds: 800)
                   : Duration(milliseconds: 0),
               child: Visibility(
                 visible: provider.getSelectedHeader == widget.headerKey,
@@ -59,7 +60,7 @@ class _ListPageItemState extends State<ListPageItem> {
                   //  shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      height: 50,
+                      height: _itemHeight,
                       color: Colors.redAccent,
                       child:
                           Center(child: Text(widget.nameList.elementAt(index))),
@@ -69,7 +70,6 @@ class _ListPageItemState extends State<ListPageItem> {
               ),
             );
           }),
-          //  ),
         ],
       ),
     );
