@@ -26,10 +26,12 @@ class _ListPageItemState extends State<ListPageItem> {
                   onTap: () {
                     selectionProvider.setSelectedHeader(widget.headerKey);
                   },
-                  child: Container(
-                    height: 50,
-                    color: Colors.amber,
-                    child: Center(child: Text(widget.headerKey)),
+                  child: Card(
+                    child: Container(
+                      height: 50,
+                      color: Colors.amber,
+                      child: Center(child: Text(widget.headerKey)),
+                    ),
                   )),
               AnimatedSize(
                 duration: Duration(milliseconds: 600),
@@ -37,8 +39,6 @@ class _ListPageItemState extends State<ListPageItem> {
                     builder: (context, provider, child) {
                   return Visibility(
                     visible: provider.getSelectedHeader == widget.headerKey,
-                    maintainState: true,
-                    maintainAnimation: true,
                     child: ListView.builder(
                       itemCount: widget.nameList.length ?? 0,
                       physics: NeverScrollableScrollPhysics(),
