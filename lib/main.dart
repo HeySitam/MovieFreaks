@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_practice/pages/animation_page.dart';
+import 'package:flutter_ui_practice/pages/first_page.dart';
+import 'package:flutter_ui_practice/pages/second_page.dart';
+import 'package:flutter_ui_practice/pages/third_page.dart';
+import 'package:flutter_ui_practice/utils/routes.dart';
 
 void main() => runApp(App());
 class App extends StatelessWidget {
@@ -10,7 +13,13 @@ class App extends StatelessWidget {
         title: "Grouped List Demo",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.teal),
-        home: MainAnimationPage()
+        initialRoute: '/',
+        routes: {
+          '/' : (context) => FirstPage(),
+          Routes.firstPageRoute : (context) => FirstPage(),
+          Routes.secondPageRoute : (context) => SecondPage(),
+          Routes.thirdPageRoute : (context) => ThirdPage()
+        },
     );
   }
 }
