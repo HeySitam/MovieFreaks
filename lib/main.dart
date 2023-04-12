@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_practice/pages/animation_page.dart';
 
 void main() => runApp(App());
 class App extends StatelessWidget {
@@ -9,7 +10,7 @@ class App extends StatelessWidget {
         title: "Grouped List Demo",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.teal),
-        home: Container()
+        home: MainAnimationPage()
     );
   }
 }
