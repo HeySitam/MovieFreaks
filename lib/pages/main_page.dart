@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_practice/pages/home/home_page.dart';
+import 'package:flutter_ui_practice/pages/profile/profile_page.dart';
+import 'package:flutter_ui_practice/pages/search/search_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainPage extends StatefulWidget {
@@ -8,41 +11,60 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int selectedIdx = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: _LoadPage(selectedIdx),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(top: BorderSide(
-            color: Colors.white60
-          )),
-          color: Color(0xFF03091c)
-        ),
-        child: Padding(
+        decoration: const BoxDecoration(
+            border: Border(top: BorderSide(color: Colors.white60)),
+            color: Color(0xFF03091c)),
+        child:  Padding(
           padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: GNav(
               gap: 8,
               backgroundColor: Color(0xFF03091c),
-              padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               color: Colors.white,
               activeColor: Colors.white,
               tabBackgroundColor: Colors.blueGrey,
-              tabs: [
-            GButton(
-              icon: Icons.home_filled,
-              text: "Home",
-            ),
-            GButton(
-              icon: Icons.search,
-              text: "Search",
-            ),
-            GButton(
-              icon: Icons.person_2_outlined,
-              text: "Profile",
-            ),
-          ]),
+              onTabChange: (idx){
+                setState(() {
+                  selectedIdx = idx;
+                });
+              },
+              tabs: const [
+                GButton(
+                  icon: Icons.home_filled,
+                  text: "Home",
+                  textStyle: TextStyle(
+                      fontWeight: FontWeight.w500, color: Colors.white),
+                ),
+                GButton(
+                  icon: Icons.search,
+                  text: "Search",
+                  textStyle: TextStyle(
+                      fontWeight: FontWeight.w500, color: Colors.white),
+                ),
+                GButton(
+                  icon: Icons.person_2_outlined,
+                  text: "Profile",
+                  textStyle: TextStyle(
+                      fontWeight: FontWeight.w500, color: Colors.white),
+                ),
+              ]),
         ),
       ),
     );
+  }
+  Widget _LoadPage(int idx){
+    if(idx == 0){
+      return HomePage();
+    } else if(idx == 1){
+      return SearchPage();
+    } else {
+      return ProfilePage();
+    }
   }
 }
