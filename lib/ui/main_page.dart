@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_practice/pages/home/home_page.dart';
-import 'package:flutter_ui_practice/pages/profile/profile_page.dart';
-import 'package:flutter_ui_practice/pages/search/search_page.dart';
+import 'package:flutter_ui_practice/ui/profile/profile_page.dart';
+import 'package:flutter_ui_practice/ui/search/search_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
+import 'home/pages/home_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -48,7 +49,7 @@ class _MainPageState extends State<MainPage> {
                       fontWeight: FontWeight.w500, color: Colors.white),
                 ),
                 GButton(
-                  icon: Icons.person_2_outlined,
+                  icon: Icons.person,
                   text: "Profile",
                   textStyle: TextStyle(
                       fontWeight: FontWeight.w500, color: Colors.white),

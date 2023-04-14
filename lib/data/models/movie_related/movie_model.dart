@@ -1,28 +1,4 @@
-class PopularMoviesModel {
-  List<Results>? results;
-
-  PopularMoviesModel(
-      {this.results});
-
-  PopularMoviesModel.fromJson(Map<String, dynamic> json) {
-    if (json['results'] != null) {
-      results = <Results>[];
-      json['results'].forEach((v) {
-        results!.add(Results.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (results != null) {
-      data['results'] = results!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Results {
+class Movie {
   String? backdropPath;
   List<int>? genreIds;
   int? id;
@@ -34,7 +10,7 @@ class Results {
   double? voteAverage;
   int? voteCount;
 
-  Results(
+  Movie(
       {
         this.backdropPath,
         this.genreIds,
@@ -47,7 +23,7 @@ class Results {
         this.voteAverage,
         this.voteCount});
 
-  Results.fromJson(Map<String, dynamic> json) {
+  Movie.fromJson(Map<String, dynamic> json) {
     backdropPath = json['backdrop_path'];
     genreIds = json['genre_ids'].cast<int>();
     id = json['id'];
