@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_practice/ui/main_page.dart';
+import 'package:flutter_ui_practice/ui/movie_detail/pages/movie_detail_page.dart';
 import 'package:flutter_ui_practice/utils/routes.dart';
 import 'package:flutter_ui_practice/viewmodels/movie_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,10 @@ class App extends StatelessWidget {
         routes: {
           '/' : (context) => ChangeNotifierProvider(
               create: (context) => MovieViewModel(),
-              child: MainPage()),
+             // child: MainPage()
+              child: MainPage()
+          ),
+          Routes.movieDetailPageRoute : (context) => MovieDetailPage()
         },
     );
   }

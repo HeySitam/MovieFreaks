@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_practice/data/movie_infos/api/movie_web_service.dart';
 import 'package:flutter_ui_practice/utils/utils.dart';
@@ -65,6 +67,8 @@ class _HomePageState extends State<HomePage> {
                         imgUrl: "${Utils.baseImgUrl}${movie.posterPath}",
                         rating: movie.voteAverage,
                         votes: movie.voteCount,
+                        heroTag: Random().nextDouble().toString(),
+                        backDropPath: movie.backdropPath,
                       );
                     });
               },
@@ -102,6 +106,8 @@ class _HomePageState extends State<HomePage> {
                         imgUrl: "${Utils.baseImgUrl}${movie.posterPath}",
                         rating: movie.voteAverage,
                         votes: movie.voteCount,
+                        heroTag: Random().nextDouble().toString(),
+                        backDropPath: movie.backdropPath,
                       );
                     });
               },
@@ -139,6 +145,8 @@ class _HomePageState extends State<HomePage> {
                         imgUrl: "${Utils.baseImgUrl}${movie.posterPath}",
                         rating: movie.voteAverage,
                         votes: movie.voteCount,
+                        heroTag: Random().nextDouble().toString(),
+                        backDropPath: movie.backdropPath,
                       );
                     });
               },

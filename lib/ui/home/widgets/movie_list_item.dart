@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_practice/ui/movie_detail/pages/movie_detail_page.dart';
+import 'package:flutter_ui_practice/utils/routes.dart';
+import 'package:flutter_ui_practice/utils/utils.dart';
 
 class MovieListItem extends StatelessWidget {
   final imgUrl;
   final rating;
   final votes;
+  final heroTag;
+  final backDropPath;
   final _itemH = 167.0;
   final _itemW = 120.0;
 
-  MovieListItem({required this.imgUrl,required this.rating,required this.votes});
+  MovieListItem({required this.imgUrl,required this.rating,required this.votes,required this.heroTag, this.backDropPath});
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +21,28 @@ class MovieListItem extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: ClipRRect(
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
-              child: Image.network(
-                imgUrl,
-                width: _itemW,
-                fit: BoxFit.cover,
-              ),
+                child: ClipRRect(
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
+                child: InkWell(
+                  onTap: (){
+                    print("shared argument is $heroTag");
+                   // Navigator.pushNamed(context, Routes.movieDetailPageRoute, arguments: heroTag);
+                    Utils.dummyCheck = heroTag;
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            transitionDuration: Duration(seconds: 1),
+                            pageBuilder: (_, __, ___) => MovieDetailPage(heroTag: heroTag,backDropPath: backDropPath,)));
+                  },
+                  child: Hero(
+                    tag: heroTag,
+                    child: Image.network(
+                      imgUrl,
+                      width: _itemW,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
           ),
             ),
             Padding(

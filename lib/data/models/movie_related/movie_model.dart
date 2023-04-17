@@ -52,7 +52,7 @@ class Movie {
   }
 
   String voteCountChecker(int data){
-    final divider = 1000;
+    const divider = 1000;
     final divResult = data/divider;
     if(divResult.floor() == 0){
       return data.toString();
