@@ -14,9 +14,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MovieViewModel _vm;
+
   @override
   void initState() {
-   _vm = Provider.of<MovieViewModel>(context,listen: false);
+    _vm = Provider.of<MovieViewModel>(context, listen: false);
     super.initState();
   }
 
@@ -25,23 +26,19 @@ class _HomePageState extends State<HomePage> {
     return ColoredBox(
       color: Color(0xFF03091c),
       child: SingleChildScrollView(
-        child: Column(
-            children: [
-              SizedBox(
-                height: 400,
-                  child: ColoredBox(color: Colors.redAccent)),
-                 PopularMovies(),
-                 Spacer(),
-                 TopRatedMovies(),
-                 Spacer(),
-                 UpcomingMovies(),
-            ]
-        ),
+        child: Column(children: [
+          SizedBox(height: 400, child: ColoredBox(color: Colors.redAccent)),
+          PopularMovies(),
+          Spacer(),
+          TopRatedMovies(),
+          Spacer(),
+          UpcomingMovies(),
+        ]),
       ),
     );
   }
 
-  Widget PopularMovies(){
+  Widget PopularMovies() {
     _vm.fetchPopularMovies();
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 4),
@@ -51,7 +48,8 @@ class _HomePageState extends State<HomePage> {
           const Text(
             "Popular Movies",
             textAlign: TextAlign.start,
-            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(
@@ -62,8 +60,12 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: vm.getPopularMovies.length ?? 0,
                     itemBuilder: (context, pos) {
-                      final posterPath = vm.getPopularMovies[pos].posterPath;
-                      return MovieListItem(imgUrl: "${Utils.baseImgUrl}$posterPath");
+                      final movie = vm.getPopularMovies[pos];
+                      return MovieListItem(
+                        imgUrl: "${Utils.baseImgUrl}${movie.posterPath}",
+                        rating: movie.voteAverage,
+                        votes: movie.voteCount,
+                      );
                     });
               },
             ),
@@ -73,7 +75,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget TopRatedMovies(){
+  Widget TopRatedMovies() {
     _vm.fetchTopRatedMovies();
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 4),
@@ -83,7 +85,8 @@ class _HomePageState extends State<HomePage> {
           const Text(
             "Top Rated Movies",
             textAlign: TextAlign.start,
-            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(
@@ -94,8 +97,12 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: vm.getTopRatedMovies.length ?? 0,
                     itemBuilder: (context, pos) {
-                      final posterPath = vm.getTopRatedMovies[pos].posterPath;
-                      return MovieListItem(imgUrl: "${Utils.baseImgUrl}$posterPath");
+                      final movie = vm.getTopRatedMovies[pos];
+                      return MovieListItem(
+                        imgUrl: "${Utils.baseImgUrl}${movie.posterPath}",
+                        rating: movie.voteAverage,
+                        votes: movie.voteCount,
+                      );
                     });
               },
             ),
@@ -105,7 +112,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget UpcomingMovies(){
+  Widget UpcomingMovies() {
     _vm.fetchUpcomingMovies();
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 4),
@@ -115,7 +122,8 @@ class _HomePageState extends State<HomePage> {
           const Text(
             "Upcoming Movies",
             textAlign: TextAlign.start,
-            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(
@@ -126,8 +134,12 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: vm.getUpcomingMovies.length ?? 0,
                     itemBuilder: (context, pos) {
-                      final posterPath = vm.getUpcomingMovies[pos].posterPath;
-                      return MovieListItem(imgUrl: "${Utils.baseImgUrl}$posterPath");
+                      final movie = vm.getUpcomingMovies[pos];
+                      return MovieListItem(
+                        imgUrl: "${Utils.baseImgUrl}${movie.posterPath}",
+                        rating: movie.voteAverage,
+                        votes: movie.voteCount,
+                      );
                     });
               },
             ),
@@ -137,7 +149,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget Spacer(){
+  Widget Spacer() {
     return const SizedBox(height: 16);
   }
 }

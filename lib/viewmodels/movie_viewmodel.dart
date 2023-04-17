@@ -31,4 +31,6 @@ class MovieViewModel extends ChangeNotifier {
     _upcomingMovies = results;
     notifyListeners();
   }
+
+
 }

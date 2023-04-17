@@ -8,7 +8,7 @@ class Movie {
   String? releaseDate;
   String? title;
   double? voteAverage;
-  int? voteCount;
+  String? voteCount;
 
   Movie(
       {
@@ -33,7 +33,7 @@ class Movie {
     releaseDate = json['release_date'];
     title = json['title'];
     voteAverage = double.parse(json['vote_average'].toString());
-    voteCount = json['vote_count'];
+    voteCount = voteCountChecker(json['vote_count']);
   }
 
   Map<String, dynamic> toJson() {
@@ -47,7 +47,18 @@ class Movie {
     data['release_date'] = releaseDate;
     data['title'] = title;
     data['vote_average'] = voteAverage;
-    data['vote_count'] = voteCount;
+    data['vote_count'] = voteCount.toString();
     return data;
   }
+
+  String voteCountChecker(int data){
+    final divider = 1000;
+    final divResult = data/divider;
+    if(divResult.floor() == 0){
+      return data.toString();
+    } else {
+      return "${divResult.toStringAsFixed(1)}K";
+    }
+  }
+
 }
