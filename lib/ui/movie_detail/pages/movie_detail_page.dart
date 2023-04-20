@@ -169,8 +169,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                 child: Column(children: [
                   CircleAvatar(
                     radius: 48,
-                    backgroundImage:
+                    foregroundImage:
                     NetworkImage("${Utils.baseImgUrl}${castList?[index].profilePath ?? "/null"}"),
+                    backgroundImage: AssetImage("assets/images/placeholder_avatar.webp"),
                   ),
                   SizedBox(
                     height: 8,
@@ -227,8 +228,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                 child: Column(children: [
                   CircleAvatar(
                     radius: 48,
-                    backgroundImage:
+                    foregroundImage:
                     NetworkImage("${Utils.baseImgUrl}${crewList?[index].profilePath ?? "/null"}"),
+                    backgroundImage: AssetImage("assets/images/placeholder_avatar.webp"),
                   ),
                   SizedBox(
                     height: 8,
