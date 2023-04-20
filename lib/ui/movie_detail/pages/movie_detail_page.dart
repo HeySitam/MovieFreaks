@@ -26,7 +26,6 @@ class MovieDetailPage extends StatefulWidget {
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
-  final genereList = ["Comedy", "Horror"];
 
   final overView =
       "Armed with the astonishing ability to shrink in scale but increase in strength, master thief Scott Lang must embrace his inner-hero and help his mentor, Doctor Hank Pym, protect the secret behind his spectacular Ant-Man suit from a new generation of towering threats. Against seemingly insurmountable obstacles, Pym and Lang must plan and pull off a heist that will save the world.";
@@ -72,7 +71,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
              // DetailPageHeader(movieTitle: widget.movieTitle ?? "Movie Title"),
               BackDropPoster(imgUrl, context),
               WatchTrailerButton(),
-              MovieBasicInfos(),
+              Consumer<MovieDetailViewModel>(
+                  builder:(context, vm, child) => MovieBasicInfos(vm.getCastCrewWithDetail)
+              ),
+             // MovieBasicInfos(),
               MovieOverview(),
               WishListAndShare(),
               SectionDivider(),
@@ -180,6 +182,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                         fontSize: 14,
                         color: Colors.white,
                         fontWeight: FontWeight.w400),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     "as ${castList?[index].character}",
@@ -236,12 +240,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                         fontSize: 14,
                         color: Colors.white,
                         fontWeight: FontWeight.w400),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     "${crewList?[index].job}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 11,
                         color: Colors.white60,
                         fontWeight: FontWeight.w400),
                   ),
@@ -359,15 +365,94 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
     );
   }
 
-  Widget MovieBasicInfos() {
+  Widget MovieBasicInfos(CastCrewWithMovieDetails? detail) {
     return Padding(
       padding: EdgeInsets.only(left: 16),
       child: Text(
-        "2h 25m • Action, Drama, Thriller • 30 Mar,2023",
+        _makeInfoText(detail),
         style: TextStyle(
             color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
       ),
     );
+  }
+
+  String _makeInfoText(CastCrewWithMovieDetails? detail){
+    int runTimeInMins = detail?.runtime ?? 0;
+    print("runtime is $runTimeInMins");
+    String runTime = "${(runTimeInMins/60).floor()}h ${runTimeInMins%60}m";
+
+    final genreList = detail?.genres ?? [];
+    String genres = genreList.isEmpty ? "" : genreList[0].name ?? "";
+
+    for (var idx = 1; idx < genreList.length ; idx++) {
+      genres += ", ${genreList[idx].name}";
+    }
+
+    String? releaseDate = detail?.releaseDate;
+
+    if(releaseDate != null){
+      releaseDate = _formatReleaseDate(releaseDate);
+    }
+
+    return "$runTime • $genres • $releaseDate";
+  }
+
+  String _formatReleaseDate(String date){
+    final dateTime = DateTime.parse(date);
+    String dateString = "${dateTime.day}";
+    switch(dateTime.month){
+      case 1 : {
+        dateString += " Jan, ";
+      }
+      break;
+      case 2 : {
+        dateString += " Feb, ";
+      }
+      break;
+      case 3 : {
+        dateString += " Mar, ";
+      }
+      break;
+      case 4 : {
+        dateString += " Apr, ";
+      }
+      break;
+      case 5 : {
+        dateString += " May, ";
+      }
+      break;
+      case 6 : {
+        dateString += " Jun, ";
+      }
+      break;
+      case 7 : {
+        dateString += " Jul, ";
+      }
+      break;
+      case 8 : {
+        dateString += " Aug, ";
+      }
+      break;
+      case 9 : {
+        dateString += " Sep, ";
+      }
+      break;
+      case 10 : {
+        dateString += " Oct, ";
+      }
+      break;
+      case 11 : {
+        dateString += " Nov, ";
+      }
+      break;
+      case 12 : {
+        dateString += " Dec, ";
+      }
+      break;
+    }
+
+    dateString += "${dateTime.year}";
+    return dateString;
   }
 
   Widget BackDropPoster(String imgUrl, BuildContext context) {
