@@ -16,9 +16,10 @@ class MovieDetailPage extends StatefulWidget {
   final backDropPath;
   final heroTag;
   final movieTitle;
+  final movieOverview;
 
   MovieDetailPage(
-      {required this.movieId, this.backDropPath, this.heroTag, this.movieTitle});
+      {required this.movieId, this.backDropPath, this.heroTag, this.movieTitle,this.movieOverview});
 
   @override
   State<MovieDetailPage> createState() => _MovieDetailPageState();
@@ -128,6 +129,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                         backDropPath: movie.backdropPath,
                         title: movie.title,
                         movieId: movie.id,
+                        movieOverView: movie.overview,
                       );
                     });
               },
@@ -329,7 +331,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                   maxLines: _isOverviewExpanded ? null : 2,
                   overflow: TextOverflow.fade,
                   text: TextSpan(
-                    text: overView,
+                    text: widget.movieOverview,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,

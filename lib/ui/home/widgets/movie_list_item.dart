@@ -11,20 +11,21 @@ class MovieListItem extends StatelessWidget {
   final rating;
   final votes;
   final heroTag;
-  final backDropPath;
+  String? backDropPath;
   final movieId;
-  final title;
+  String? title;
+  final movieOverView;
   final _itemH = 167.0;
   final _itemW = 120.0;
 
-  MovieListItem(
-      {required this.imgUrl,
-      required this.rating,
-      required this.votes,
-      required this.heroTag,
-      required this.movieId,
-      this.backDropPath,
-      this.title});
+  MovieListItem({required this.imgUrl,
+    required this.rating,
+    required this.votes,
+    required this.heroTag,
+    required this.movieId,
+    required this.movieOverView,
+    this.backDropPath,
+    this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +46,13 @@ class MovieListItem extends StatelessWidget {
                       context,
                       PageRouteBuilder(
                           transitionDuration: Duration(seconds: 1),
-                          pageBuilder: (_, __, ___) => MovieDetailPage(
+                          pageBuilder: (_, __, ___) =>
+                              MovieDetailPage(
                                 heroTag: heroTag,
                                 backDropPath: backDropPath,
                                 movieTitle: title,
                                 movieId: movieId,
+                                movieOverview: movieOverView,
                               )));
                 },
                 child: Hero(

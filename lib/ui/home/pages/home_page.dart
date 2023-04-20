@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
                         backDropPath: movie.backdropPath,
                         title: movie.title,
                         movieId: movie.id,
+                        movieOverView: movie.overview,
                       );
                     });
               },
@@ -112,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                         backDropPath: movie.backdropPath,
                         title: movie.title,
                         movieId: movie.id,
+                        movieOverView: movie.overview,
                       );
                     });
               },
@@ -153,6 +155,7 @@ class _HomePageState extends State<HomePage> {
                         backDropPath: movie.backdropPath,
                         title: movie.title,
                         movieId: movie.id,
+                        movieOverView: movie.overview,
                       );
                     });
               },
