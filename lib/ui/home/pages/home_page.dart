@@ -69,6 +69,8 @@ class _HomePageState extends State<HomePage> {
                         votes: movie.voteCount,
                         heroTag: Random().nextDouble().toString(),
                         backDropPath: movie.backdropPath,
+                        title: movie.title,
+                        movieId: movie.id,
                       );
                     });
               },
@@ -108,6 +110,8 @@ class _HomePageState extends State<HomePage> {
                         votes: movie.voteCount,
                         heroTag: Random().nextDouble().toString(),
                         backDropPath: movie.backdropPath,
+                        title: movie.title,
+                        movieId: movie.id,
                       );
                     });
               },
@@ -147,6 +151,8 @@ class _HomePageState extends State<HomePage> {
                         votes: movie.voteCount,
                         heroTag: Random().nextDouble().toString(),
                         backDropPath: movie.backdropPath,
+                        title: movie.title,
+                        movieId: movie.id,
                       );
                     });
               },
