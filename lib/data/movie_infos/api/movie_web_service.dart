@@ -62,4 +62,18 @@ class MovieWebservice {
       throw Exception("Unable to perform request!");
     }
   }
+
+  Future<List<Movie>> fetchSimilarMovies(int movieId) async {
+    final url =
+        "${Utils.baseUrl}movie/$movieId/similar?api_key=4ec53f3b9ac13226645942eca37f3df0&language=en&page=1";
+    final response = await _dio.get(url);
+    if (response.statusCode == 200) {
+      final body = response.data;
+      Iterable json = body['results'];
+
+      return json.map((movie) => Movie.fromJson(movie)).toList();
+    } else {
+      throw Exception("Unable to perform request!");
+    }
+  }
 }

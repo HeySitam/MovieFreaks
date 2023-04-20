@@ -1,15 +1,19 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_ui_practice/data/models/movie_related/cast_crew_model.dart';
 import 'package:flutter_ui_practice/main.dart';
+import 'package:flutter_ui_practice/ui/movie_detail/widgets/similar_movies_list.dart';
 import 'package:flutter_ui_practice/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../viewmodels/movie_detail_viewmodel.dart';
-import '../../../viewmodels/movie_viewmodel.dart';
-import '../../home/widgets/movie_list_item.dart';
+import '../widgets/backdrop_poster_widget.dart';
+import '../widgets/cast_list_widget.dart';
+import '../widgets/crew_list_widget.dart';
+import '../widgets/movie_basic_infos_widget.dart';
+import '../widgets/movie_overview_widget.dart';
+import '../widgets/section_divider_widget.dart';
+import '../widgets/watch_trailer_button_widget.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final movieId;
@@ -34,6 +38,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
 
   @override
   void initState() {
+    Provider.of<MovieDetailViewModel>(context,listen: false).fetchSimilarMovies(widget.movieId);
     Provider.of<MovieDetailViewModel>(context, listen: false).fetchFromCastCrewApi(widget.movieId);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       routeObserver.subscribe(this, ModalRoute.of(context)!);
@@ -44,6 +49,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
   @override
   void didPopNext() {
     Provider.of<MovieDetailViewModel>(context, listen: false).fetchFromCastCrewApi(widget.movieId);
+    Provider.of<MovieDetailViewModel>(context,listen: false).fetchSimilarMovies(widget.movieId);
     super.didPopNext();
   }
 
@@ -69,25 +75,26 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
              // DetailPageHeader(movieTitle: widget.movieTitle ?? "Movie Title"),
-              BackDropPoster(imgUrl, context),
-              WatchTrailerButton(),
+              BackDropPosterWidget(imgUrl: imgUrl, context: context, heroTag: widget.heroTag),
+              _WatchTrailerButton(),
               Consumer<MovieDetailViewModel>(
-                  builder:(context, vm, child) => MovieBasicInfos(vm.getCastCrewWithDetail)
+                  builder:(context, vm, child) {
+                    return MovieBasicInfoWidget(detail: vm.getCastCrewWithDetail);
+                  }
               ),
-             // MovieBasicInfos(),
-              MovieOverview(),
-              WishListAndShare(),
-              SectionDivider(),
+              MovieOverviewWidget(movieOverview: widget.movieOverview),
+              _WishListAndShare(),
+              const SectionDividerWidget(),
               Consumer<MovieDetailViewModel>(
-                  builder:(context, vm, child) => CastList(vm.getCastCrewWithDetail)
+                  builder:(context, vm, child) => CastListWidget(detail: vm.getCastCrewWithDetail)
         ),
-              SectionDivider(),
+              const SectionDividerWidget(),
               Consumer<MovieDetailViewModel>(
-                  builder:(context, vm, child) => CrewList(vm.getCastCrewWithDetail)
+                  builder:(context, vm, child) => CrewListWidget(detail: vm.getCastCrewWithDetail)
               ),
-              SectionDivider(),
-              TopRatedMovies(),
-              SizedBox(height: 16,)
+              const SectionDividerWidget(),
+              const SimilarMoviesList(),
+              const SizedBox(height: 16)
             ],
           ),
         ),
@@ -95,181 +102,16 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
     );
   }
 
-  Widget TopRatedMovies() {
-    Provider.of<MovieViewModel>(context,listen: false).fetchTopRatedMovies();
+  Widget _WishListAndShare() {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(left:16),
-            child:  Text(
-              "Get here similar",
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500),
-            ),
-          ),
-          const SizedBox(height: 4),
-          SizedBox(
-            height: 200,
-            child: Consumer<MovieViewModel>(
-              builder: (context, vm, child) {
-                return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: vm.getTopRatedMovies.length ?? 0,
-                    itemBuilder: (context, pos) {
-                      final movie = vm.getTopRatedMovies[pos];
-                      return MovieListItem(
-                        imgUrl: "${Utils.baseImgUrl}${movie.posterPath}",
-                        rating: movie.voteAverage,
-                        votes: movie.voteCount,
-                        heroTag: Random().nextDouble().toString(),
-                        backDropPath: movie.backdropPath,
-                        title: movie.title,
-                        movieId: movie.id,
-                        movieOverView: movie.overview,
-                      );
-                    });
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget CastList(CastCrewWithMovieDetails? detail){
-    final castList = detail?.credits?.cast;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 16, top: 8),
-          child: Text(
-            "Cast",
-            style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-                fontWeight: FontWeight.w500),
-          ),
-        ),
-        SizedBox(height: 16,),
-        SizedBox(
-          height: 180,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: castList?.length ?? 0,
-              itemBuilder: (context, index) => Container(
-                margin: EdgeInsets.only(left: 8, right: 8),
-                width: 120,
-                child: Column(children: [
-                  CircleAvatar(
-                    radius: 48,
-                    foregroundImage:
-                    NetworkImage("${Utils.baseImgUrl}${castList?[index].profilePath ?? "/null"}"),
-                    backgroundImage: AssetImage("assets/images/placeholder_avatar.webp"),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "${castList?[index].name}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    "as ${castList?[index].character}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.white60,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ]),
-              )),
-        )
-      ],
-    );
-  }
-
-  Widget CrewList(CastCrewWithMovieDetails? detail){
-    final crewList = detail?.credits?.crew;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 16, top: 8),
-          child: Text(
-            "Crew",
-            style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-                fontWeight: FontWeight.w500),
-          ),
-        ),
-        SizedBox(height: 16,),
-        SizedBox(
-          height: 180,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: crewList?.length ?? 0,
-              itemBuilder: (context, index) => Container(
-                margin: EdgeInsets.only(left: 8, right: 8),
-                width: 120,
-                child: Column(children: [
-                  CircleAvatar(
-                    radius: 48,
-                    foregroundImage:
-                    NetworkImage("${Utils.baseImgUrl}${crewList?[index].profilePath ?? "/null"}"),
-                    backgroundImage: AssetImage("assets/images/placeholder_avatar.webp"),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "${crewList?[index].name}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    "${crewList?[index].job}",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.white60,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ]),
-              )),
-        )
-      ],
-    );
-  }
-
-  Widget WishListAndShare() {
-    return Padding(
-      padding: EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.only(top: 12),
       child: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 16,
           ),
           Column(
-            children: [
+            children: const [
               Icon(
                 Icons.add_rounded,
                 color: Colors.white,
@@ -287,11 +129,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 32,
           ),
           Column(
-            children: [
+            children: const [
               Icon(
                 Icons.share,
                 color: Colors.white,
@@ -314,191 +156,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
     );
   }
 
-  Widget SectionDivider() {
-    return Padding(
-        padding: EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
-        child: Divider(
-          color: Colors.white30,
-        ));
-  }
-
-  Widget MovieOverview() {
-    return AnimatedSize(
-      duration: Duration(milliseconds: 300),
-      child: Padding(
-        padding: EdgeInsets.only(left: 16, right: 32, top: 16),
-        child: GestureDetector(
-            onTap: () {
-              _isOverviewExpanded = !_isOverviewExpanded;
-              setState(() {});
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                RichText(
-                  maxLines: _isOverviewExpanded ? null : 2,
-                  overflow: TextOverflow.fade,
-                  text: TextSpan(
-                    text: widget.movieOverview,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300),
-                    children: const <TextSpan>[
-                      TextSpan(
-                          text: '...less',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.pinkAccent)),
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: !_isOverviewExpanded,
-                  child: Text('...more',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                          color: Colors.pinkAccent)),
-                ),
-              ],
-            )),
-      ),
-    );
-  }
-
-  Widget MovieBasicInfos(CastCrewWithMovieDetails? detail) {
-    return Padding(
-      padding: EdgeInsets.only(left: 16),
-      child: Text(
-        _makeInfoText(detail),
-        style: TextStyle(
-            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
-      ),
-    );
-  }
-
-  String _makeInfoText(CastCrewWithMovieDetails? detail){
-    int runTimeInMins = detail?.runtime ?? 0;
-    print("runtime is $runTimeInMins");
-    String runTime = "${(runTimeInMins/60).floor()}h ${runTimeInMins%60}m";
-
-    final genreList = detail?.genres ?? [];
-    String genres = genreList.isEmpty ? "" : genreList[0].name ?? "";
-
-    for (var idx = 1; idx < genreList.length ; idx++) {
-      genres += ", ${genreList[idx].name}";
-    }
-
-    String? releaseDate = detail?.releaseDate;
-
-    if(releaseDate != null){
-      releaseDate = _formatReleaseDate(releaseDate);
-    }
-
-    return "$runTime • $genres • $releaseDate";
-  }
-
-  String _formatReleaseDate(String date){
-    final dateTime = DateTime.parse(date);
-    String dateString = "${dateTime.day}";
-    switch(dateTime.month){
-      case 1 : {
-        dateString += " Jan, ";
-      }
-      break;
-      case 2 : {
-        dateString += " Feb, ";
-      }
-      break;
-      case 3 : {
-        dateString += " Mar, ";
-      }
-      break;
-      case 4 : {
-        dateString += " Apr, ";
-      }
-      break;
-      case 5 : {
-        dateString += " May, ";
-      }
-      break;
-      case 6 : {
-        dateString += " Jun, ";
-      }
-      break;
-      case 7 : {
-        dateString += " Jul, ";
-      }
-      break;
-      case 8 : {
-        dateString += " Aug, ";
-      }
-      break;
-      case 9 : {
-        dateString += " Sep, ";
-      }
-      break;
-      case 10 : {
-        dateString += " Oct, ";
-      }
-      break;
-      case 11 : {
-        dateString += " Nov, ";
-      }
-      break;
-      case 12 : {
-        dateString += " Dec, ";
-      }
-      break;
-    }
-
-    dateString += "${dateTime.year}";
-    return dateString;
-  }
-
-  Widget BackDropPoster(String imgUrl, BuildContext context) {
-    return Hero(
-      tag: widget.heroTag,
-      child: Image.network(imgUrl,
-          height: 250,
-          fit: BoxFit.cover,
-          width: MediaQuery.of(context).size.width,
-          loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) return child;
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    loadingProgress.expectedTotalBytes!
-                : null,
-          ),
-        );
-      }),
-    );
-  }
-
-  Widget WatchTrailerButton() {
+  Widget _WatchTrailerButton() {
     return InkWell(
       onTap: () {
         print("Watch Trailer");
       },
-      child: Container(
-        height: 48,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(8)),
-        margin: EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.play_arrow),
-            Text(
-              "Watch Trailers",
-              style: TextStyle(fontWeight: FontWeight.w500),
-            )
-          ],
-        ),
-      ),
+      child: const WatchTrailerButtonWidget(),
     );
   }
 }
+
