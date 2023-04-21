@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class BackDropPosterWidget extends StatelessWidget{
   final String imgUrl;
   final BuildContext context;
-  final heroTag;
-  BackDropPosterWidget({required this.imgUrl,required this.context, this.heroTag});
+  final String heroTag;
+  const BackDropPosterWidget({super.key, required this.imgUrl,required this.context,required this.heroTag});
   @override
   Widget build(BuildContext context) {
     return Hero(
@@ -26,5 +26,4 @@ class BackDropPosterWidget extends StatelessWidget{
           }),
     );
   }
-
 }

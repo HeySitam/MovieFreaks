@@ -41,7 +41,7 @@ class MovieListItem extends StatelessWidget {
                 onTap: () {
                   print("shared argument is $heroTag");
                   // Navigator.pushNamed(context, Routes.movieDetailPageRoute, arguments: heroTag);
-                  Utils.dummyCheck = heroTag;
+                 // Utils.dummyCheck = heroTag;
                   Navigator.push(
                       context,
                       PageRouteBuilder(

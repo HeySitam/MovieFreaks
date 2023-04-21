@@ -13,6 +13,7 @@ import '../widgets/crew_list_widget.dart';
 import '../widgets/movie_basic_infos_widget.dart';
 import '../widgets/movie_overview_widget.dart';
 import '../widgets/section_divider_widget.dart';
+import '../widgets/video_list_widget.dart';
 import '../widgets/watch_trailer_button_widget.dart';
 
 class MovieDetailPage extends StatefulWidget {
@@ -60,7 +61,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget.movieTitle}",
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 20,
               color: Colors.white,
               fontWeight: FontWeight.w500
@@ -76,7 +77,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
             children: [
              // DetailPageHeader(movieTitle: widget.movieTitle ?? "Movie Title"),
               BackDropPosterWidget(imgUrl: imgUrl, context: context, heroTag: widget.heroTag),
-              _WatchTrailerButton(),
+              //_WatchTrailerButton(),
               Consumer<MovieDetailViewModel>(
                   builder:(context, vm, child) {
                     return MovieBasicInfoWidget(detail: vm.getCastCrewWithDetail);
@@ -91,6 +92,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
               const SectionDividerWidget(),
               Consumer<MovieDetailViewModel>(
                   builder:(context, vm, child) => CrewListWidget(detail: vm.getCastCrewWithDetail)
+              ),
+              const SectionDividerWidget(),
+              Consumer<MovieDetailViewModel>(
+                  builder:(context, vm, child) => VideoListWidget(backDropPath: widget.backDropPath,)
               ),
               const SectionDividerWidget(),
               const SimilarMoviesList(),

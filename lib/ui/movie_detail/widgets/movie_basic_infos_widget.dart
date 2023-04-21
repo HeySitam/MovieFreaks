@@ -14,7 +14,7 @@ class _MovieBasicInfoWidgetState extends State<MovieBasicInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16),
+      padding: const EdgeInsets.only(left: 16,top: 16),
       child: Text(
         _makeInfoText(widget.detail),
         style: const TextStyle(
