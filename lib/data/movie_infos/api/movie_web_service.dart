@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_ui_practice/utils/utils.dart';
 
 import '../../models/movie_related/cast_crew_model.dart';
+import '../../models/movie_related/corresponding_video.dart';
 import '../../models/movie_related/movie_model.dart';
 
 class MovieWebservice {
@@ -72,6 +73,19 @@ class MovieWebservice {
       Iterable json = body['results'];
 
       return json.map((movie) => Movie.fromJson(movie)).toList();
+    } else {
+      throw Exception("Unable to perform request!");
+    }
+  }
+
+  Future<List<VideoInfo>> fetchCorrespondingVideos(int movieId) async {
+    final url =
+        "${Utils.baseUrl}movie/$movieId/videos?api_key=4ec53f3b9ac13226645942eca37f3df0&language=en";
+    final response = await _dio.get(url);
+    if (response.statusCode == 200) {
+      final body = response.data;
+      Iterable json = body['results'];
+      return json.map((movie) => VideoInfo.fromJson(movie)).toList();
     } else {
       throw Exception("Unable to perform request!");
     }

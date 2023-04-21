@@ -41,6 +41,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
   void initState() {
     Provider.of<MovieDetailViewModel>(context,listen: false).fetchSimilarMovies(widget.movieId);
     Provider.of<MovieDetailViewModel>(context, listen: false).fetchFromCastCrewApi(widget.movieId);
+    Provider.of<MovieDetailViewModel>(context, listen: false).fetchVideoInfos(widget.movieId);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       routeObserver.subscribe(this, ModalRoute.of(context)!);
     });
@@ -94,9 +95,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                   builder:(context, vm, child) => CrewListWidget(detail: vm.getCastCrewWithDetail)
               ),
               const SectionDividerWidget(),
-              Consumer<MovieDetailViewModel>(
-                  builder:(context, vm, child) => VideoListWidget(backDropPath: widget.backDropPath,)
-              ),
+              VideoListWidget(backDropPath: widget.backDropPath,),
               const SectionDividerWidget(),
               const SimilarMoviesList(),
               const SizedBox(height: 16)
