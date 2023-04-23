@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_practice/ui/movie_detail/pages/play_video_page.dart';
 import 'package:flutter_ui_practice/utils/utils.dart';
 import 'package:flutter_ui_practice/viewmodels/movie_detail_viewmodel.dart';
 import 'package:provider/provider.dart';
+
+import '../../../utils/routes.dart';
 
 class VideoListWidget extends StatelessWidget {
   final String? backDropPath;
@@ -44,11 +43,13 @@ class VideoListWidget extends StatelessWidget {
                             InkWell(
                               onTap: (){
                                 print("Let's Watch it");
-                                Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => PlayVideoPage(
-                                      videoId: vm.getVideoInfos[index].key.toString()
-                                  ))
-                                );
+                                // Navigator.push(context,
+                                //   MaterialPageRoute(builder: (context) => PlayVideoPage(
+                                //       videoId: vm.getVideoInfos[index].key.toString()
+                                //   ))
+                                // );
+
+                                Navigator.pushNamed(context, Routes.playVideoPageRoute,arguments: {"videoId": vm.getVideoInfos[index].key.toString()});
                               },
                               child: Card(
                                 child: ClipRRect(
