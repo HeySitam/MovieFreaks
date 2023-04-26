@@ -29,8 +29,8 @@ class _MovieOverviewWidgetState extends State<MovieOverviewWidget> {
                   overflow: TextOverflow.fade,
                   text: TextSpan(
                     text: widget.movieOverview,
-                    style: const TextStyle(
-                        color: Colors.white,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
                         fontSize: 12,
                         fontWeight: FontWeight.w300),
                     children: const <TextSpan>[

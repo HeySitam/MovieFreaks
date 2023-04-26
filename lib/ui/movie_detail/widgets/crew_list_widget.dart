@@ -12,13 +12,13 @@ class CrewListWidget extends StatelessWidget{
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 16, top: 8),
+         Padding(
+          padding: const EdgeInsets.only(left: 16, top: 8),
           child: Text(
             "Crew",
             style: TextStyle(
                 fontSize: 18,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.w500),
           ),
         ),
@@ -44,9 +44,9 @@ class CrewListWidget extends StatelessWidget{
                   Text(
                     "${crewList?[index].name}",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style:  TextStyle(
                         fontSize: 14,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w400),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -54,9 +54,9 @@ class CrewListWidget extends StatelessWidget{
                   Text(
                     "${crewList?[index].job}",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 11,
-                        color: Colors.white60,
+                        color: Theme.of(context).colorScheme.tertiary,
                         fontWeight: FontWeight.w400),
                   ),
                 ]),

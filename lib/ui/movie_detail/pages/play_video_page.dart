@@ -3,7 +3,9 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PlayVideoPage extends StatefulWidget {
   final String? videoId;
+
   PlayVideoPage({required this.videoId});
+
   @override
   State<PlayVideoPage> createState() => _PlayVideoPageState();
 }
@@ -11,11 +13,11 @@ class PlayVideoPage extends StatefulWidget {
 class _PlayVideoPageState extends State<PlayVideoPage> {
   late YoutubePlayerController _controller;
 
-
   @override
   void initState() {
+    print("videoId is ${widget.videoId ?? ""}");
     _controller = YoutubePlayerController(
-      initialVideoId: widget?.videoId ?? "",
+      initialVideoId: widget.videoId ?? "",
       flags: const YoutubePlayerFlags(
         autoPlay: true,
       ),
@@ -25,13 +27,10 @@ class _PlayVideoPageState extends State<PlayVideoPage> {
 
   @override
   Widget build(BuildContext context) => YoutubePlayerBuilder(
-          player: YoutubePlayer(
-          controller: _controller,
+      player: YoutubePlayer(
+        controller: _controller,
       ),
       builder: (context, player) {
         return player;
-      }
-      );
-
-  }
-
+      });
+}

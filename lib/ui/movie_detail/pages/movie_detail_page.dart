@@ -52,6 +52,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
   void didPopNext() {
     Provider.of<MovieDetailViewModel>(context, listen: false).fetchFromCastCrewApi(widget.movieId);
     Provider.of<MovieDetailViewModel>(context,listen: false).fetchSimilarMovies(widget.movieId);
+    Provider.of<MovieDetailViewModel>(context,listen: false).fetchVideoInfos(widget.movieId);
     super.didPopNext();
   }
 
@@ -62,17 +63,17 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget.movieTitle}",
-          style: const TextStyle(
+          style:  TextStyle(
               fontSize: 20,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w500
           ),),
-        backgroundColor: Utils.background_color,
+        backgroundColor: Theme.of(context).colorScheme.background,
 
       ),
       body: SingleChildScrollView(
         child: ColoredBox(
-          color: Utils.background_color,
+          color: Theme.of(context).colorScheme.background,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -115,10 +116,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
             width: 16,
           ),
           Column(
-            children: const [
+            children:  [
               Icon(
                 Icons.add_rounded,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
                 size: 20,
               ),
               Padding(
@@ -126,7 +127,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                 child: Text(
                   "Wishlist",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.primary,
                       fontSize: 10,
                       fontWeight: FontWeight.w500),
                 ),
@@ -137,10 +138,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
             width: 32,
           ),
           Column(
-            children: const [
+            children:  [
               Icon(
                 Icons.share,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.primary,
                 size: 20,
               ),
               Padding(
@@ -148,7 +149,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
                 child: Text(
                   "Share",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.primary,
                       fontSize: 10,
                       fontWeight: FontWeight.w500),
                 ),

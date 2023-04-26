@@ -17,14 +17,14 @@ class SimilarMoviesList extends StatelessWidget{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left:16),
+           Padding(
+            padding: const EdgeInsets.only(left:16),
             child:  Text(
               "Get here similar",
               textAlign: TextAlign.start,
               style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500),
             ),
           ),

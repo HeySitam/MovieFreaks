@@ -30,6 +30,7 @@ class MovieListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).colorScheme.primary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Column(
         children: [
@@ -39,9 +40,8 @@ class MovieListItem extends StatelessWidget {
                   topLeft: Radius.circular(8), topRight: Radius.circular(8)),
               child: InkWell(
                 onTap: () {
-                  print("shared argument is $heroTag");
                   // Navigator.pushNamed(context, Routes.movieDetailPageRoute, arguments: heroTag);
-                 // Utils.dummyCheck = heroTag;
+                  // Utils.dummyCheck = heroTag;
                   Navigator.push(
                       context,
                       PageRouteBuilder(
@@ -80,14 +80,16 @@ class MovieListItem extends StatelessWidget {
                 ),
                 Text(
                   "$rating/10",
-                  style: TextStyle(fontSize: 10),
+                  style: TextStyle(fontSize: 10,
+                  color: Theme.of(context).colorScheme.surface
+                  ),
                 ),
                 SizedBox(
                   width: 4,
                 ),
                 Text(
                   "$votes votes",
-                  style: TextStyle(fontSize: 10),
+                  style: TextStyle(fontSize: 10,color: Theme.of(context).colorScheme.surface),
                 ),
               ],
             ),

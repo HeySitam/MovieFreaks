@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_practice/ui/main_page.dart';
+import 'package:flutter_ui_practice/ui/themes/app_theme.dart';
 import 'package:flutter_ui_practice/utils/routes.dart';
 import 'package:flutter_ui_practice/viewmodels/movie_detail_viewmodel.dart';
 import 'package:flutter_ui_practice/viewmodels/movie_viewmodel.dart';
@@ -21,7 +22,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: "Movie App",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.teal),
+      themeMode: ThemeMode.system,
+      theme: AppTheme.dayTheme,
+      darkTheme: AppTheme.nightTheme,
       home: MainPage(),
       onGenerateRoute: (settings) {
         return Routes.onGenerateCustomRoute(settings);

@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: Color(0xFF03091c),
+      color: Theme.of(context).backgroundColor,
       child: SingleChildScrollView(
         child: Column(children: [
           SizedBox(height: 400, child: ColoredBox(color: Colors.redAccent)),
@@ -47,11 +47,11 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Popular Movies",
             textAlign: TextAlign.start,
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+                color: Theme.of(context).secondaryHeaderColor, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(
@@ -89,11 +89,11 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Top Rated Movies",
             textAlign: TextAlign.start,
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+                color: Theme.of(context).secondaryHeaderColor, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(
@@ -131,11 +131,11 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Upcoming Movies",
             textAlign: TextAlign.start,
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+                color: Theme.of(context).secondaryHeaderColor, fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(

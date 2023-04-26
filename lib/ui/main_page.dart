@@ -18,41 +18,41 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: _LoadPage(selectedIdx),
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.white60)),
-            color: Color(0xFF03091c)),
+        decoration:  BoxDecoration(
+            border: Border(top: BorderSide(color: Theme.of(context).colorScheme.tertiary)),
+            color: Theme.of(context).colorScheme.background),
         child:  Padding(
           padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: GNav(
               gap: 8,
-              backgroundColor: Color(0xFF03091c),
+              backgroundColor: Theme.of(context).colorScheme.background,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              color: Colors.white,
-              activeColor: Colors.white,
-              tabBackgroundColor: Colors.blueGrey,
+              color: Theme.of(context).colorScheme.primary,
+              activeColor: Theme.of(context).colorScheme.primary,
+              tabBackgroundColor: Theme.of(context).colorScheme.secondary,
               onTabChange: (idx){
                 setState(() {
                   selectedIdx = idx;
                 });
               },
-              tabs: const [
+              tabs:  [
                 GButton(
                   icon: Icons.home_filled,
                   text: "Home",
                   textStyle: TextStyle(
-                      fontWeight: FontWeight.w500, color: Colors.white),
+                      fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.primary),
                 ),
                 GButton(
                   icon: Icons.search,
                   text: "Search",
                   textStyle: TextStyle(
-                      fontWeight: FontWeight.w500, color: Colors.white),
+                      fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.primary),
                 ),
                 GButton(
                   icon: Icons.person,
                   text: "Profile",
                   textStyle: TextStyle(
-                      fontWeight: FontWeight.w500, color: Colors.white),
+                      fontWeight: FontWeight.w500, color: Theme.of(context).colorScheme.primary),
                 ),
               ]),
         ),

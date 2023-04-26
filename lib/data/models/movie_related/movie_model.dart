@@ -32,7 +32,8 @@ class Movie {
     posterPath = json['poster_path'];
     releaseDate = json['release_date'];
     title = json['title'];
-    voteAverage = double.parse(json['vote_average'].toString());
+    double voteFromJson = double.parse(json['vote_average'].toString());
+    voteAverage = double.parse(voteFromJson.toStringAsFixed(1));
     voteCount = voteCountChecker(json['vote_count']);
   }
 

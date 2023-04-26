@@ -17,8 +17,8 @@ class _MovieBasicInfoWidgetState extends State<MovieBasicInfoWidget> {
       padding: const EdgeInsets.only(left: 16,top: 16),
       child: Text(
         _makeInfoText(widget.detail),
-        style: const TextStyle(
-            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
+        style:  TextStyle(
+            color: Theme.of(context).colorScheme.primary, fontSize: 12, fontWeight: FontWeight.w500),
       ),
     );
   }

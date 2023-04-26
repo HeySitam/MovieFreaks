@@ -17,12 +17,12 @@ class VideoListWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 16, top: 8),
+         Padding(
+          padding: const EdgeInsets.only(left: 16, top: 8),
           child: Text(
             "Trailers & More",
             style: TextStyle(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
+                fontSize: 18, color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w500),
           ),
         ),
         const SizedBox(
@@ -42,7 +42,6 @@ class VideoListWidget extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: (){
-                                print("Let's Watch it");
                                 // Navigator.push(context,
                                 //   MaterialPageRoute(builder: (context) => PlayVideoPage(
                                 //       videoId: vm.getVideoInfos[index].key.toString()
@@ -108,9 +107,9 @@ class VideoListWidget extends StatelessWidget {
                               child: Text(
                                 vm.getVideoInfos[index].name.toString(),
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style:  TextStyle(
                                     fontSize: 12,
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.primary,
                                     fontWeight: FontWeight.w400),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
