@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData dayTheme = ThemeData(
-      backgroundColor: Colors.white70,
-      secondaryHeaderColor: Color(0xFF03091c),
       colorScheme: const ColorScheme(
           brightness: Brightness.light,
           primary: Color(0xFF03091c),
@@ -19,8 +17,6 @@ class AppTheme {
           tertiary: Colors.black54)
   );
   static ThemeData nightTheme = ThemeData(
-    backgroundColor: Color(0xFF03091c),
-    secondaryHeaderColor: Colors.white,
       colorScheme: const ColorScheme(
           brightness: Brightness.light,
           primary: Colors.white,

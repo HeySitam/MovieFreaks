@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_practice/main.dart';
 import 'package:flutter_ui_practice/ui/movie_detail/pages/movie_detail_page.dart';
+import 'package:flutter_ui_practice/ui/themes/colors.dart';
 import 'package:flutter_ui_practice/utils/routes.dart';
 import 'package:flutter_ui_practice/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -27,10 +29,13 @@ class MovieListItem extends StatelessWidget {
     this.backDropPath,
     this.title});
 
+  late AppColors appColors;
+
   @override
   Widget build(BuildContext context) {
+    appColors = AppColors(context: context);
     return Card(
-      color: Theme.of(context).colorScheme.primary,
+      color: appColors.primary(),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Column(
         children: [
@@ -81,7 +86,7 @@ class MovieListItem extends StatelessWidget {
                 Text(
                   "$rating/10",
                   style: TextStyle(fontSize: 10,
-                  color: Theme.of(context).colorScheme.surface
+                  color: appColors.surface()
                   ),
                 ),
                 SizedBox(
@@ -89,7 +94,7 @@ class MovieListItem extends StatelessWidget {
                 ),
                 Text(
                   "$votes votes",
-                  style: TextStyle(fontSize: 10,color: Theme.of(context).colorScheme.surface),
+                  style: TextStyle(fontSize: 10,color: appColors.surface()),
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_practice/ui/themes/colors.dart';
 
 class MovieOverviewWidget extends StatefulWidget{
   final movieOverview;
@@ -9,6 +10,13 @@ class MovieOverviewWidget extends StatefulWidget{
 
 class _MovieOverviewWidgetState extends State<MovieOverviewWidget> {
   bool _isOverviewExpanded = false;
+  late AppColors appColors;
+
+  @override
+  void initState() {
+    appColors = AppColors(context: context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +38,7 @@ class _MovieOverviewWidgetState extends State<MovieOverviewWidget> {
                   text: TextSpan(
                     text: widget.movieOverview,
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: appColors.primary(),
                         fontSize: 12,
                         fontWeight: FontWeight.w300),
                     children: const <TextSpan>[

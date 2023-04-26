@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../data/models/movie_related/cast_crew_model.dart';
 import '../../../utils/utils.dart';
+import '../../themes/colors.dart';
 
 class CrewListWidget extends StatelessWidget{
   final CastCrewWithMovieDetails? detail;
@@ -9,6 +10,7 @@ class CrewListWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final crewList = detail?.credits?.crew;
+    AppColors appColors = AppColors(context: context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -18,7 +20,7 @@ class CrewListWidget extends StatelessWidget{
             "Crew",
             style: TextStyle(
                 fontSize: 18,
-                color: Theme.of(context).colorScheme.primary,
+                color: appColors.primary(),
                 fontWeight: FontWeight.w500),
           ),
         ),
@@ -46,7 +48,7 @@ class CrewListWidget extends StatelessWidget{
                     textAlign: TextAlign.center,
                     style:  TextStyle(
                         fontSize: 14,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: appColors.primary(),
                         fontWeight: FontWeight.w400),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -56,7 +58,7 @@ class CrewListWidget extends StatelessWidget{
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 11,
-                        color: Theme.of(context).colorScheme.tertiary,
+                        color: appColors.tertiary(),
                         fontWeight: FontWeight.w400),
                   ),
                 ]),

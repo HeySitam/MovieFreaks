@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_practice/main.dart';
 import 'package:flutter_ui_practice/ui/movie_detail/widgets/similar_movies_list.dart';
+import 'package:flutter_ui_practice/ui/themes/colors.dart';
 import 'package:flutter_ui_practice/utils/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -36,9 +37,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
       "Armed with the astonishing ability to shrink in scale but increase in strength, master thief Scott Lang must embrace his inner-hero and help his mentor, Doctor Hank Pym, protect the secret behind his spectacular Ant-Man suit from a new generation of towering threats. Against seemingly insurmountable obstacles, Pym and Lang must plan and pull off a heist that will save the world.";
   bool _isOverviewExpanded = false;
   late MovieDetailViewModel _vm;
+  late AppColors appColors;
 
   @override
   void initState() {
+    appColors = AppColors(context: context);
     Provider.of<MovieDetailViewModel>(context,listen: false).fetchSimilarMovies(widget.movieId);
     Provider.of<MovieDetailViewModel>(context, listen: false).fetchFromCastCrewApi(widget.movieId);
     Provider.of<MovieDetailViewModel>(context, listen: false).fetchVideoInfos(widget.movieId);
@@ -59,13 +62,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
   @override
   Widget build(BuildContext context) {
     var imgUrl = "${Utils.baseImgUrl}${widget.backDropPath}";
-    print(imgUrl);
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget.movieTitle}",
           style:  TextStyle(
               fontSize: 20,
-              color: Theme.of(context).colorScheme.primary,
+              color:  appColors.primary(),
               fontWeight: FontWeight.w500
           ),),
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -73,7 +75,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
       ),
       body: SingleChildScrollView(
         child: ColoredBox(
-          color: Theme.of(context).colorScheme.background,
+          color: appColors.background(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -119,15 +121,15 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
             children:  [
               Icon(
                 Icons.add_rounded,
-                color: Theme.of(context).colorScheme.primary,
+                color: appColors.primary(),
                 size: 20,
               ),
               Padding(
-                padding: EdgeInsets.only(top: 4),
+                padding: const EdgeInsets.only(top: 4),
                 child: Text(
                   "Wishlist",
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: appColors.primary(),
                       fontSize: 10,
                       fontWeight: FontWeight.w500),
                 ),
@@ -141,15 +143,15 @@ class _MovieDetailPageState extends State<MovieDetailPage> with RouteAware{
             children:  [
               Icon(
                 Icons.share,
-                color: Theme.of(context).colorScheme.primary,
+                color: appColors.primary(),
                 size: 20,
               ),
               Padding(
-                padding: EdgeInsets.only(top: 4),
+                padding: const EdgeInsets.only(top: 4),
                 child: Text(
                   "Share",
                   style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: appColors.primary(),
                       fontSize: 10,
                       fontWeight: FontWeight.w500),
                 ),

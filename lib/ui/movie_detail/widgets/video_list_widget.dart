@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_practice/ui/themes/colors.dart';
 import 'package:flutter_ui_practice/utils/utils.dart';
 import 'package:flutter_ui_practice/viewmodels/movie_detail_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ class VideoListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appColors = AppColors(context: context);
     String backDropUrl = "${Utils.baseImgUrl}$backDropPath";
     const placeHolderImgPath = "assets/images/placeholder_poster.jpg";
     return Column(
@@ -22,7 +24,7 @@ class VideoListWidget extends StatelessWidget {
           child: Text(
             "Trailers & More",
             style: TextStyle(
-                fontSize: 18, color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w500),
+                fontSize: 18, color: appColors.primary(), fontWeight: FontWeight.w500),
           ),
         ),
         const SizedBox(
@@ -109,7 +111,7 @@ class VideoListWidget extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style:  TextStyle(
                                     fontSize: 12,
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color: appColors.primary(),
                                     fontWeight: FontWeight.w400),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

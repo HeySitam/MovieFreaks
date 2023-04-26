@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_practice/data/movie_infos/api/movie_web_service.dart';
+import 'package:flutter_ui_practice/ui/themes/colors.dart';
 import 'package:flutter_ui_practice/utils/utils.dart';
 import 'package:flutter_ui_practice/viewmodels/movie_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -16,17 +17,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MovieViewModel _vm;
+  late AppColors appColors;
 
   @override
   void initState() {
     _vm = Provider.of<MovieViewModel>(context, listen: false);
+    appColors = AppColors(context: context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: Theme.of(context).backgroundColor,
+      color: appColors.background(),
       child: SingleChildScrollView(
         child: Column(children: [
           SizedBox(height: 400, child: ColoredBox(color: Colors.redAccent)),
@@ -51,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             "Popular Movies",
             textAlign: TextAlign.start,
             style: TextStyle(
-                color: Theme.of(context).secondaryHeaderColor, fontSize: 20, fontWeight: FontWeight.w500),
+                color: appColors.primary(), fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(
@@ -93,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             "Top Rated Movies",
             textAlign: TextAlign.start,
             style: TextStyle(
-                color: Theme.of(context).secondaryHeaderColor, fontSize: 20, fontWeight: FontWeight.w500),
+                color: appColors.primary(), fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(
@@ -135,7 +138,7 @@ class _HomePageState extends State<HomePage> {
             "Upcoming Movies",
             textAlign: TextAlign.start,
             style: TextStyle(
-                color: Theme.of(context).secondaryHeaderColor, fontSize: 20, fontWeight: FontWeight.w500),
+                color: appColors.primary(), fontSize: 20, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
           SizedBox(

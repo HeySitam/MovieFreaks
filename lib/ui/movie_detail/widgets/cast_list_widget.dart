@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_practice/ui/themes/colors.dart';
 
 import '../../../data/models/movie_related/cast_crew_model.dart';
 import '../../../utils/utils.dart';
@@ -6,8 +7,10 @@ import '../../../utils/utils.dart';
 class CastListWidget extends StatelessWidget{
   final CastCrewWithMovieDetails? detail;
   const CastListWidget({super.key, required this.detail});
+
   @override
   Widget build(BuildContext context) {
+    AppColors appColors = AppColors(context: context);
     final castList = detail?.credits?.cast;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,7 +21,7 @@ class CastListWidget extends StatelessWidget{
             "Cast",
             style: TextStyle(
                 fontSize: 18,
-                color: Theme.of(context).colorScheme.primary,
+                color: appColors.primary(),
                 fontWeight: FontWeight.w500),
           ),
         ),
@@ -46,7 +49,7 @@ class CastListWidget extends StatelessWidget{
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 14,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: appColors.primary(),
                         fontWeight: FontWeight.w400),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -56,7 +59,7 @@ class CastListWidget extends StatelessWidget{
                     textAlign: TextAlign.center,
                     style:  TextStyle(
                         fontSize: 11,
-                        color: Theme.of(context).colorScheme.tertiary,
+                        color: appColors.tertiary(),
                         fontWeight: FontWeight.w400),
                   ),
                 ]),

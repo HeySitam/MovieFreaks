@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ui_practice/ui/themes/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/utils.dart';
@@ -12,6 +13,7 @@ class SimilarMoviesList extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final appColors = AppColors(context: context);
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Column(
@@ -24,7 +26,7 @@ class SimilarMoviesList extends StatelessWidget{
               textAlign: TextAlign.start,
               style: TextStyle(
                   fontSize: 18,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: appColors.primary(),
                   fontWeight: FontWeight.w500),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/models/movie_related/cast_crew_model.dart';
+import '../../themes/colors.dart';
 
 class MovieBasicInfoWidget extends StatefulWidget{
   final CastCrewWithMovieDetails? detail;
@@ -11,6 +12,13 @@ class MovieBasicInfoWidget extends StatefulWidget{
 }
 
 class _MovieBasicInfoWidgetState extends State<MovieBasicInfoWidget> {
+  late AppColors appColors;
+
+  @override
+  void initState() {
+    appColors = AppColors(context: context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +26,7 @@ class _MovieBasicInfoWidgetState extends State<MovieBasicInfoWidget> {
       child: Text(
         _makeInfoText(widget.detail),
         style:  TextStyle(
-            color: Theme.of(context).colorScheme.primary, fontSize: 12, fontWeight: FontWeight.w500),
+            color: appColors.primary(), fontSize: 12, fontWeight: FontWeight.w500),
       ),
     );
   }
