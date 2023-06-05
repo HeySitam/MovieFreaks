@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_practice/ui/profile/profile_page.dart';
-import 'package:flutter_ui_practice/ui/search/search_page.dart';
+import 'package:flutter_ui_practice/ui/search/pages/search_page.dart';
 import 'package:flutter_ui_practice/ui/themes/colors.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
