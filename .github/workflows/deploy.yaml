@@ -1,1 +1,35 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - movie_app # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.10.6 # Change this to your Flutter version if needed
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build the web app
+        run: flutter build web --release
+
+      - name: Deploy to AWS S3
+        env:
+          AWS_ACCESS_KEY_ID: AKIATWKAORC3ZUST73GJ
+          AWS_SECRET_ACCESS_KEY: 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
+          AWS_DEFAULT_REGION: ap-south-1
+        run: |
+          aws s3 sync build/web s3://befluttery
+
 
